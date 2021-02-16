@@ -1,3 +1,5 @@
+import random
+
 def func(compare_function, setA, setB, allA = True, allB = True):
     """Function for comparing two sets with two quantifies.
 
@@ -23,6 +25,7 @@ def func(compare_function, setA, setB, allA = True, allB = True):
         truth = funcSecond(lis[0], lis[1])
         for item in lis[1:]:
             truth = funcSecond(truth, item)
+        lisBig.append(truth)
 
     truth = funcFirst(lisBig[0], lisBig[1])
     for item in lisBig[1:]:
@@ -30,10 +33,18 @@ def func(compare_function, setA, setB, allA = True, allB = True):
    
     return truth
     
+G0 = (True, True)
+G1 = (True, False)
+G2 = (False, True)
+G3 = (False, False)
+
+#lis = random.sample(range(0, 10), 5)
+#print(lis)
+
 
 lessThan = lambda a, b : a > b  
 
 setA = [1,2,5]
-setB = [3,4,1]
+setB = [3,5,1]
 
-func(lessThan, setA, setB, False, True)
+print(func(lessThan, setA, setB, False, True))
