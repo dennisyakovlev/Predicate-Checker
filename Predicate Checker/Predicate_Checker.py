@@ -1,4 +1,15 @@
 def func(compare_function, setA, setB, allA = True, allB = True):
+    """Function for comparing two sets with two quantifies.
+
+       <compare_function> binary function to return bool
+       <setA> <setB> are lists with items
+       <allA> first quantifier
+       <allB> second quantifier
+       True for quantifier means Universal
+       False for quantifier means Existential
+    """
+    #Existential quantifier can be rewritten as OR statement
+    #Universal quantifier can be rewritten as AND statement
     funcFirst = (lambda a, b : a and b) if allA else (lambda a, b : a or b)
     funcSecond = (lambda a, b : a and b) if allB else (lambda a, b : a or b)
 
@@ -16,7 +27,8 @@ def func(compare_function, setA, setB, allA = True, allB = True):
     truth = funcFirst(lisBig[0], lisBig[1])
     for item in lisBig[1:]:
         truth = funcFirst(truth, item)
-    print(truth)
+   
+    return truth
     
 
 lessThan = lambda a, b : a > b  
