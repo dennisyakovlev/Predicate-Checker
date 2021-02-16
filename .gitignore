@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Predicate Checker/env/Lib/site-packages/pip/_internal/cli
+/Predicate Checker/env/Lib/site-packages/pip/_vendor/webencodings/x_user_defined.py
+/Predicate Checker/env/Lib/site-packages/pip/_internal
+/Predicate Checker/env
