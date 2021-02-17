@@ -25,8 +25,8 @@ class Predicate:
         self.second_q = q2
         
 
-def func(compare_function: Callable, setA: List[Any],
-        setB: List[Any], predicate: Predicate):
+def func(compare_function: Callable, setA: List[int],
+        setB: List[int], predicate: Predicate):
     """Function for comparing two sets with two quantifies.
 
        <compare_function> binary function to return bool
@@ -75,8 +75,11 @@ def implies(lis: List[Tuple[bool, bool]]):
         print("first bool is always false.")
     return True
 
-def check_predicate(pred1: Predicate, pred2: Predicate, to_num1: int = 10,
-                   to_num2: int = 10, set_len1: int = 5, set_len2: int = 5):
+
+#change random number to be rando anything
+def check_predicate(pred1: Predicate, pred2: Predicate,
+                   to_num1: int = 10, to_num2: int = 10, 
+                   set_len1: int = 5, set_len2: int = 5):
     """Check all the predicates.
     """
     total_iter = to_num1 * to_num2
