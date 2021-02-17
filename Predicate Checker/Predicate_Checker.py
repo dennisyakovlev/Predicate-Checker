@@ -1,6 +1,9 @@
 import random
 import sys
 
+#length of progress bar
+BAR_LENGTH = 25
+
 #PREDICATES
 G0 = (True, True)
 G1 = (True, False)
@@ -66,8 +69,15 @@ def check_predicates(toNum1 = 10, toNum2 = 10):
     results = []
     for i in range(toNum1):
         for j in range(toNum2):
-            #sys.stdout.write(f"\r#" * counter)
-            #sys.stdout.flush()
+            percent_done = round(100 * ((counter + 1) / total_iter), 1)
+
+            finished = round(percent_done / (100 / BAR_LENGTH))
+            not_finished = BAR_LENGTH - finished
+
+            done = '█' * finished
+            working = '░' * not_finished 
+            print(f'Running: [{done}{working}] - {percent_done}% Finished', end='\r')
+
             for _ in range(100):
                 S = [random.randint(0, i) for item in range(5)]
                 T = [random.randint(0, j) for item in range(5)]
@@ -77,6 +87,8 @@ def check_predicates(toNum1 = 10, toNum2 = 10):
 
                 results.append((pred1, pred2))
 
+            counter += 1
+    return results
 
-
+results = check_predicates()
 print(implies(results))
