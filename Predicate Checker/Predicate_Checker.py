@@ -62,23 +62,25 @@ def implies(lis):
         print("first bool is always false.")
     return True
 
-def check_predicates(toNum1 = 10, toNum2 = 10):
-    total_iter = toNum1 * toNum2
+def check_predicate(pred1, pred2, to_num1 = 10, to_num2 = 10, set_len1 = 5, set_len2 = 5):
+    """Check all the predicates
+    """
+    total_iter = to_num1 * to_num2
     counter = 0
     
     results = []
-    for i in range(toNum1):
-        for j in range(toNum2):
+    for i in range(to_num1):
+        for j in range(to_num2):
             progress_bar('check_predicates', total_iter, counter)
 
             for _ in range(100):
-                S = [random.randint(0, i) for item in range(5)]
-                T = [random.randint(0, j) for item in range(5)]
+                S = [random.randint(0, i) for item in range(set_len1)]
+                T = [random.randint(0, j) for item in range(set_len2)]
 
-                pred1 = func(greaterThan, S, T, G2)
-                pred2 = func(greaterThan, S, T, G0)
+                pred1_res = func(greaterThan, S, T, pred1)
+                pred2_res = func(greaterThan, S, T, pred2)
 
-                results.append((pred1, pred2))
+                results.append((pred1_res, pred2_res))
 
             counter += 1
     print()
@@ -94,5 +96,17 @@ def progress_bar(func_name, total, count):
     working = '░' * not_finished 
     print(f'Running \"{func_name}\": [{done}{working}] - {percent_done}% Finished', end='\r')
 
-results = check_predicates()
-print(implies(results))
+def get_all_pairs(lis):
+    """Get all pairs of predicates.
+    """
+    ret = []
+    for pred in lis:
+        for pred2 in lis:
+            ret.append((pred, pred2))
+    return ret
+
+all_pairings = get_all_pairs([G0, G1, G2, G3])
+for item in all_pairings:
+    results = check_predicate(item[0], item[1])
+    print(implies(results))
+    print()
