@@ -69,14 +69,7 @@ def check_predicates(toNum1 = 10, toNum2 = 10):
     results = []
     for i in range(toNum1):
         for j in range(toNum2):
-            percent_done = round(100 * ((counter + 1) / total_iter), 1)
-
-            finished = round(percent_done / (100 / BAR_LENGTH))
-            not_finished = BAR_LENGTH - finished
-
-            done = '█' * finished
-            working = '░' * not_finished 
-            print(f'Running: [{done}{working}] - {percent_done}% Finished', end='\r')
+            progress_bar('check_predicates', total_iter, counter)
 
             for _ in range(100):
                 S = [random.randint(0, i) for item in range(5)]
@@ -88,7 +81,18 @@ def check_predicates(toNum1 = 10, toNum2 = 10):
                 results.append((pred1, pred2))
 
             counter += 1
+    print()
     return results
+
+def progress_bar(func_name, total, count):
+    percent_done = round(100 * ((count + 1) / total), 1)
+
+    finished = round(percent_done / (100 / BAR_LENGTH))
+    not_finished = BAR_LENGTH - finished
+
+    done = '█' * finished
+    working = '░' * not_finished 
+    print(f'Running \"{func_name}\": [{done}{working}] - {percent_done}% Finished', end='\r')
 
 results = check_predicates()
 print(implies(results))
