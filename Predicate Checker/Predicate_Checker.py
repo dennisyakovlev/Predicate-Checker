@@ -6,22 +6,27 @@ from typing import Any, Callable, List, Tuple
 BAR_LENGTH = 25
 
 class Predicate:
+    """A predictae class.
+
+    name:
+        name of predicate
+    first_q:
+        first quantifier of predicate
+    second_q:
+        second quantifier of predicate
+    """
+    name: str
+    first_q: bool
+    second_q: bool
 
     def __init__(self, name: str, q1: bool, q2: bool):
         self.name = name
-        self.q1 = q1
-        self.q2 = w2
+        self.first_q = q1
+        self.second_q = q2
+        
 
-#PREDICATES
-G0 = (True, True)
-G1 = (True, False)
-G2 = (False, True)
-G3 = (False, False)
-
-#FUNCTION
-greaterThan = lambda a, b : a > b  
-
-def func(compare_function: Callable, setA: List[Any], setB: List[Any], predicate):
+def func(compare_function: Callable, setA: List[Any],
+        setB: List[Any], predicate: Predicate):
     """Function for comparing two sets with two quantifies.
 
        <compare_function> binary function to return bool
@@ -31,8 +36,8 @@ def func(compare_function: Callable, setA: List[Any], setB: List[Any], predicate
        True for quantifier means Universal
        False for quantifier means Existential
     """
-    allA = predicate[0]
-    allB = predicate[1]
+    allA = predicate.first_q
+    allB = predicate.second_q
     #Existential quantifier can be rewritten as OR statement
     #Universal quantifier can be rewritten as AND statement
     funcFirst = (lambda a, b : a and b) if allA else (lambda a, b : a or b)
@@ -70,8 +75,9 @@ def implies(lis: List[Tuple[bool, bool]]):
         print("first bool is always false.")
     return True
 
-def check_predicate(pred1, pred2, to_num1: int = 10, to_num2: int = 10, set_len1: int = 5, set_len2: int = 5):
-    """Check all the predicates
+def check_predicate(pred1: Predicate, pred2: Predicate, to_num1: int = 10,
+                   to_num2: int = 10, set_len1: int = 5, set_len2: int = 5):
+    """Check all the predicates.
     """
     total_iter = to_num1 * to_num2
     counter = 0
@@ -106,7 +112,7 @@ def progress_bar(func_name: Callable, total: int, count: int):
     working = '░' * not_finished 
     print(f'Running \"{func_name}\": [{done}{working}] - {percent_done}% Finished', end='\r')
 
-def get_all_pairs(lis: List[Tuple[bool, bool]]):
+def get_all_pairs(lis: List[Predicate]):
     """Get all pairs of predicates.
     """
     ret = []
@@ -115,8 +121,18 @@ def get_all_pairs(lis: List[Tuple[bool, bool]]):
             ret.append((pred, pred2))
     return ret
 
+
+#PREDICATES
+G0 = Predicate('G0', True, True)
+G1 = Predicate('G1', True, False)
+G2 = Predicate('G2', False, True)
+G3 = Predicate('G3', False, False)
+
+#FUNCTION GIVEN
+greaterThan = lambda a, b : a > b 
+
 all_pairings = get_all_pairs([G0, G1, G2, G3])
 for item in all_pairings:
-    results = check_predicate(item[0], item[1])
-    print(implies(results))
+    results = check_predicate(item[0], item[1], 5, 5)
+    print(f'{item[0].name} implies {item[1].name}: {implies(results)}')
     print()
