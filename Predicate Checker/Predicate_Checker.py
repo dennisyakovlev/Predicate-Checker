@@ -1,8 +1,16 @@
 import random
 import sys
+from typing import Any, Callable, List, Tuple
 
 #length of progress bar
 BAR_LENGTH = 25
+
+class Predicate:
+
+    def __init__(self, name: str, q1: bool, q2: bool):
+        self.name = name
+        self.q1 = q1
+        self.q2 = w2
 
 #PREDICATES
 G0 = (True, True)
@@ -13,7 +21,7 @@ G3 = (False, False)
 #FUNCTION
 greaterThan = lambda a, b : a > b  
 
-def func(compare_function, setA, setB, predicate):
+def func(compare_function: Callable, setA: List[Any], setB: List[Any], predicate):
     """Function for comparing two sets with two quantifies.
 
        <compare_function> binary function to return bool
@@ -48,7 +56,7 @@ def func(compare_function, setA, setB, predicate):
    
     return truth
     
-def implies(lis):
+def implies(lis: List[Tuple[bool, bool]]):
     """Check if when first bool of tuple 
        is true then second one is too.
     """
@@ -62,7 +70,7 @@ def implies(lis):
         print("first bool is always false.")
     return True
 
-def check_predicate(pred1, pred2, to_num1 = 10, to_num2 = 10, set_len1 = 5, set_len2 = 5):
+def check_predicate(pred1, pred2, to_num1: int = 10, to_num2: int = 10, set_len1: int = 5, set_len2: int = 5):
     """Check all the predicates
     """
     total_iter = to_num1 * to_num2
@@ -86,7 +94,9 @@ def check_predicate(pred1, pred2, to_num1 = 10, to_num2 = 10, set_len1 = 5, set_
     print()
     return results
 
-def progress_bar(func_name, total, count):
+def progress_bar(func_name: Callable, total: int, count: int):
+    """Print a progress bar.
+    """
     percent_done = round(100 * ((count + 1) / total), 1)
 
     finished = round(percent_done / (100 / BAR_LENGTH))
@@ -96,7 +106,7 @@ def progress_bar(func_name, total, count):
     working = '░' * not_finished 
     print(f'Running \"{func_name}\": [{done}{working}] - {percent_done}% Finished', end='\r')
 
-def get_all_pairs(lis):
+def get_all_pairs(lis: List[Tuple[bool, bool]]):
     """Get all pairs of predicates.
     """
     ret = []
